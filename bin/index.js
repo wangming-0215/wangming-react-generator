@@ -8,7 +8,7 @@ commander.version(appInfo.version);
 
 commander
   .command('new <projectName>')
-  .description('generator a project with project name')
+  .description('generate a project with project name')
   .action(name => {
     projectName = name;
   });
