@@ -14,15 +14,16 @@ function generator(projectName) {
 }
 
 function initialProject(projectName) {
-  console.log('generator package.json ...');
+  console.log('Generate package.json ...');
   generatorPackageJson(projectName);
   console.log(
     chalk.green('Installing dependencies from npm, please be patient ...')
   );
-  Promise.all([install(projectName, 'dev'), install(projectName)])
+  install(projectName)
     .then(() => {
+      console.log();
       console.log(chalk.cyan('Install dependencies completed!'));
-      console.log(chalk.green(`Generator ${projectName} completed!`));
+      console.log(chalk.green(`Generate ${projectName} completed!`));
     })
     .catch(reason => {
       const nodeModulesPath = path.join(CURR_DIR, 'node_modules');
@@ -57,22 +58,15 @@ function generatorPackageJson(projectName) {
   );
 }
 
-function install(projectName, mode) {
+function install(projectName) {
   const projectPath = path.join(CURR_DIR, projectName);
   const options = {
     cwd: projectPath,
-    stdio: 'ignore'
+    stdio: 'inherit'
   };
-  let dependencies = [];
+  let dependencies = getDependencies().dependencies;
   const command = 'npm';
-  const args = [];
-  if (mode === 'dev') {
-    dependencies = getDependencies().devDependencies;
-    args.push('install', '--save-dev');
-  } else {
-    dependencies = getDependencies().dependencies;
-    args.push('install', '--save');
-  }
+  const args = ['install', '--save'];
   return new Promise((resolve, reject) => {
     const child = spawn(command, args.concat(dependencies), options);
     child.on('close', code => {
@@ -96,7 +90,7 @@ function createDirectoryContent(templatePath, projectName) {
       const contents = fs.readFileSync(originFilePath, 'utf-8');
       const writePath = path.join(CURR_DIR, projectName, file);
       fs.writeFileSync(writePath, contents, 'utf-8');
-      console.log(`Generator ${file} ...`);
+      console.log(`Generate ${file} ...`);
     } else if (stat.isDirectory()) {
       const mkdirPath = path.join(CURR_DIR, projectName, file);
       fs.mkdirSync(mkdirPath);
