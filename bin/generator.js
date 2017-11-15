@@ -2,11 +2,12 @@ const path = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
 const spawn = require('cross-spawn');
-const getDependencies = require('../util/getDependencies');
+const dependencies = require('../util/dependencies');
 
 const CURR_DIR = process.cwd();
 
 function generator(projectName) {
+  console.log(projectName);
   fs.mkdirSync(path.join(CURR_DIR, projectName));
   const templatePath = path.resolve(__dirname, '../template');
   createDirectoryContent(templatePath, projectName);
@@ -64,7 +65,6 @@ function install(projectName) {
     cwd: projectPath,
     stdio: 'inherit'
   };
-  let dependencies = getDependencies().dependencies;
   const command = 'npm';
   const args = ['install', '--save'];
   return new Promise((resolve, reject) => {

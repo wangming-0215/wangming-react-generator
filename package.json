@@ -17,6 +17,7 @@
     "cross-spawn": "^5.1.0"
   },
   "devDependencies": {
+    "babel-eslint": "^8.0.2",
     "babel-polyfill": "^6.26.0"
   },
   "description": ""

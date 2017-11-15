@@ -1,0 +1,40 @@
+const dependencies = [
+  'autoprefixer',
+  'babel-core',
+  'babel-eslint',
+  'babel-loader',
+  'babel-plugin-transform-decorators-legacy',
+  'babel-preset-env',
+  'babel-preset-react',
+  'clean-webpack-plugin',
+  'css-loader',
+  'cssnano',
+  'eslint',
+  'eslint-config-airbnb',
+  'eslint-loader',
+  'eslint-plugin-import',
+  'eslint-plugin-jsx-a11y',
+  'eslint-plugin-react',
+  'extract-text-webpack-plugin',
+  'file-loader',
+  'html-webpack-plugin',
+  'node-sass',
+  'normalize.css',
+  'optimize-css-assets-webpack-plugin',
+  'postcss-loader',
+  'react',
+  'react-css-modules',
+  'react-dom',
+  'react-hot-loader',
+  'sass-loader',
+  'style-loader',
+  'uglifyjs-webpack-plugin',
+  'url-loader',
+  'webpack',
+  'webpack-dev-server',
+  'webpack-merge'
+];
+
+module.exports = dependencies.map(dependent => {
+  return dependent + '@latest';
+});
